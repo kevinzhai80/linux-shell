@@ -1,0 +1,101 @@
+
+shell
+tput cols #terminal colum
+tput lines #terminal line
+tput longname #terminal name
+tput cup 100 100 #move cur to 100 100
+
+shell变量$#,$@,$0,$1,$2的含义解释: 
+变量说明: 
+$$ 
+Shell本身的PID（ProcessID） 
+$! 
+Shell最后运行的后台Process的PID 
+$? 
+最后运行的命令的结束代码（返回值） 
+$- 
+使用Set命令设定的Flag一览 
+$* 
+所有参数列表。如"$*"用「"」括起来的情况、以"$1 $2 … $n"的形式输出所有参数。 
+$@ 
+所有参数列表。如"$@"用「"」括起来的情况、以"$1" "$2" … "$n" 的形式输出所有参数。 
+$# 
+添加到Shell的参数个数 
+$0 
+Shell本身的文件名 
+$1～$n 
+添加到Shell的各参数值。$1是第1参数、$2是第2参数…。
+
+命令“:”告诉shell不要进行任何操作
+
+
+fork 炸弹
+:(){:|:& };:
+或者
+.(){.|.& };.
+
+修改/etc/security/limits.conf可限制可生成的最大进程数来避开炸弹。
+
+
+
+read
+
+read -n 2 var #读取两个字符到变量var
+read -s var #用不回显的方式读取
+read -p “Enter var” var #显示提示信息
+read -t 2 var #在特定时限2秒内读取
+read -d ":" var #用界定符例如"："结束输入
+
+
+算数比较
+-eq #等于
+-ne #不等于
+-gt #大于
+-lt #小于
+-ge #大于或等于
+-le #小于或等于
+
+文件系统相关测试
+-f #给定变量包含正常文件路径或文件名，则返回真
+-x #给定变量文件可执行，则返回真
+-d #如果给定的变量包含目录，则返回真
+-e #如果给定的变量包含文件，这返回真
+-c #如果给定的变量包含的是字符设备文件的路径，则返回真
+-b #如果给定的变量包含的是块设备的文件路径，则返回真
+-w #如果给定的变量包含的文件可写，则返回真
+-r #如果给定的变量包含文件可读，则返回真
+-L #如果给定变量包含的是一个符号连接，则返回真
+
+
+字符串比较
+
+1.比较两个字符串，在=两边各有一个空格，如果没有空格，就是赋值关系
+2.使用&&或||可实现多个条件的组合
+
+
+cat
+cat -s file #压缩file文本中的空白行
+cat file|tr -s #将file文本中多个'/n'压缩成单个'/n'
+cat -T file #标记出file文本中制表符
+cat -n #输出file文本所在的行号
+
+script及scriptreplay
+
+script -t 2 > timing.log -a output.seesion
+type commands;
+...
+...
+exit;
+
+script 广播
+mkfifo scriptfifo #terminal 1
+cat scriptfifo #terminal 2
+script -f scriptfifo #terminal 1
+commands;
+
+find
+-iname #忽略大小写
+OR #多条件检索 find . \(-name "*.txt" OR -name "*.pdf"\) -print
+
+
+
